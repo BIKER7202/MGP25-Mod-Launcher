@@ -1,4 +1,4 @@
-**Information**
+# Information
 
 A very simplistic program to allow the patching of MotoGP 25 in order to use mods, with the ability to launch either the patched version (to use mods) or the default version without mods (to play online).
 
@@ -6,7 +6,7 @@ The code isn't *brilliant*, but it does the job for this task. Obviously if you 
 
 Feel free to build upon this, adapt it for other games, port it to a different language, anything really!
 
-**Usage**
+## Usage
 
 For most, just download the files from the releases section and follow the tutorial below:
 <Link to Youtube>
@@ -15,7 +15,7 @@ Of course if you run into any issues, let me know either here or on in my Discor
 Discord: https://discord.gg/WYMDRm2Hvv
 
 
-**Other Info**
+## Other Info
 
 Language used - C# with Windows Forms
 
