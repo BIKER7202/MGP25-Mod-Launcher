@@ -8,10 +8,12 @@ Feel free to build upon this, adapt it for other games, port it to a different l
 
 ## Usage
 
-For most, just download the files from the releases section and follow the tutorial below:
-<Link to Youtube>
+For most, just download the files from the releases section and follow the tutorial:
+
+[![Video Tutorial](https://img.youtube.com/vi/2G6jNwbMmfo/maxresdefault.jpg)](https://youtu.be/2G6jNwbMmfo)
 
 Of course if you run into any issues, let me know either here or on in my Discord Server (more likely to get a fast response there).
+
 Discord: https://discord.gg/WYMDRm2Hvv
 
 
