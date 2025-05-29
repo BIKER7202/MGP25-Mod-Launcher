@@ -29,7 +29,7 @@
         public const string cSuccessPatchText = "Patching Successful!\n" +
                                                 "\nYou can now play with mods via the 'Launch Game With Mods' Option." +
                                                 "\nYou will need to repeat this step whenever the game is updated." +
-                                                "\nThis can be done via the 'Repack Exe' Option.";
+                                                "\nThis can be done via the 'Repatch Exe' Option.";
 
         public const string cInfoTitle = "Information";
 
