@@ -39,23 +39,23 @@ namespace MGP_25_Mod_Launcher
         public static void addShortcutToDesktop(string pcGameDir, int piModded)
         {
             dynamic loMyShortCut;
-            string lcLinkName = "MotoGP™25 ";
+            string lcLinkName = DirConstants.cGameName;
             string lcArguments;
 
             if (piModded == 0)
             {
-                lcLinkName += "Without Mods";
+                lcLinkName += " Without Mods";
                 lcArguments = "-LaunchDefault";
             }
             else
             {
-                lcLinkName += "With Mods";
+                lcLinkName += " With Mods";
                 lcArguments = "-LaunchModded";
             }
 
             loMyShortCut = new WshShell().CreateShortcut(DirConstants.cDesktopDir + "\\" + lcLinkName + ".lnk");
             loMyShortCut.IconLocation = pcGameDir + DirConstants.cExeDir;
-            loMyShortCut.TargetPath = DirConstants.cWorkingDir + "\\MGP 25 Mod Launcher.exe";
+            loMyShortCut.TargetPath = DirConstants.cWorkingDir + "\\" + DirConstants.cLauncherName + ".exe";
             loMyShortCut.Arguments = lcArguments;
             loMyShortCut.WorkingDirectory = DirConstants.cWorkingDir;
             loMyShortCut.Save();
