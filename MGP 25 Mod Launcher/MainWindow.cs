@@ -9,6 +9,7 @@ namespace MGP_25_Mod_Launcher
     {
         private string cGameDir;
         private Settings oSettings;
+        private HashChecker oHashChecker;
 
         public MainWindow()
         {
@@ -19,16 +20,35 @@ namespace MGP_25_Mod_Launcher
             oSettings = new Settings();
             cGameDir = oSettings.getSetting("gameDir");
 
+            oHashChecker = new HashChecker(oSettings.getSetting("vanillaHash"), oSettings.getSetting("moddedHash"));
+
+            if (oHashChecker.getVanillaHash() == "")
+            {
+                storeChecksums();
+            }
+
             lcCommandArgs = Environment.GetCommandLineArgs();
 
             foreach (string lcArgument in lcCommandArgs)
             {
                 if (lcArgument == "-LaunchModded")
                 {
+                    if (!oHashChecker.isGameExeHashKnown(cGameDir))
+                    {
+                        Utilities.displayInformation(UIStrings.cUpdateDetectedText, UIStrings.cInfoTitle);
+                        patchGameExe();
+                    }
+
                     GameLauncher.launchModdedGame(cGameDir);
                 }
                 else if (lcArgument == "-LaunchDefault")
                 {
+                    if (!oHashChecker.isGameExeHashKnown(cGameDir))
+                    {
+                        Utilities.displayInformation(UIStrings.cUpdateDetectedText, UIStrings.cInfoTitle);
+                        patchGameExe();
+                    }
+
                     GameLauncher.launchVanillaGame(cGameDir);
                 }
             }
@@ -47,6 +67,12 @@ namespace MGP_25_Mod_Launcher
             if (oSettings.getSetting("patchedExe") != "true")
             {
                 patchGameExe();
+            }
+
+            // Users were having issues when game updates were applied, now hashing Exe for detecting updates
+            if (oSettings.getSetting("storedChecksums") != "true")
+            {
+                storeChecksums();
             }
         }
 
@@ -91,6 +117,12 @@ namespace MGP_25_Mod_Launcher
 
         private void patchGameExe()
         {
+            if (oHashChecker.isGameExeHashKnown(cGameDir))
+            {
+                Utilities.displayInformation(UIStrings.cGameAlreadyPatched, UIStrings.cInfoTitle);
+                return;
+            }
+
             if (Patcher.patchGame(cGameDir))
             {
                 Utilities.displayInformation(UIStrings.cSuccessPatchText);
@@ -101,6 +133,16 @@ namespace MGP_25_Mod_Launcher
                 Utilities.displayError(UIStrings.cErrorPatchText);
                 Application.Exit();
             }
+
+            storeChecksums();
+        }
+
+        private void storeChecksums()
+        {
+            oHashChecker.checkBackedUpExeHashes();
+            oSettings.setSetting("vanillaHash", oHashChecker.getVanillaHash());
+            oSettings.setSetting("moddedHash", oHashChecker.getModdedHash());
+            oSettings.setSetting("storedChecksums", "true");
         }
 
         private void createShortcuts_Click(object sender, EventArgs e)
@@ -111,12 +153,24 @@ namespace MGP_25_Mod_Launcher
 
         private void launchModdedGame_Click(object sender, EventArgs e)
         {
+            if (!oHashChecker.isGameExeHashKnown(cGameDir))
+            {
+                Utilities.displayInformation(UIStrings.cUpdateDetectedText, UIStrings.cInfoTitle);
+                patchGameExe();
+            }
+
             GameLauncher.launchModdedGame(cGameDir);
             Utilities.displayError(UIStrings.cErrorLaunchText);
         }
 
         private void launchVanillaGame_Click(object sender, EventArgs e)
         {
+            if (!oHashChecker.isGameExeHashKnown(cGameDir))
+            {
+                Utilities.displayInformation(UIStrings.cUpdateDetectedText, UIStrings.cInfoTitle);
+                patchGameExe();
+            }
+
             GameLauncher.launchVanillaGame(cGameDir);
             Utilities.displayError(UIStrings.cErrorLaunchText);
         }

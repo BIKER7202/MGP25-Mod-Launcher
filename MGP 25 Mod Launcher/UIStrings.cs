@@ -30,5 +30,12 @@
                                                 "\nYou can now play with mods via the 'Launch Game With Mods' Option." +
                                                 "\nYou will need to repeat this step whenever the game is updated." +
                                                 "\nThis can be done via the 'Repack Exe' Option.";
+
+        public const string cInfoTitle = "Information";
+
+        public const string cUpdateDetectedText = "Game Update Detected!\n" +
+                                                  "\nThe Launcher will now repatch this updated file";
+
+        public const string cGameAlreadyPatched = "Game Already Patched!";
     }
 }

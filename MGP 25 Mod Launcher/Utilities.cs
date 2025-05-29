@@ -1,4 +1,5 @@
 ﻿using IWshRuntimeLibrary;
+using System.Security.Cryptography;
 
 namespace MGP_25_Mod_Launcher
 {
@@ -59,6 +60,20 @@ namespace MGP_25_Mod_Launcher
             loMyShortCut.Arguments = lcArguments;
             loMyShortCut.WorkingDirectory = DirConstants.cWorkingDir;
             loMyShortCut.Save();
+        }
+
+        public static string getMD5HashAsBase64(string pcFileName)
+        {
+            byte[] lwMD5Hash;
+            
+            using (MD5 loMD5 = MD5.Create())
+            {
+                using (FileStream loFileStream = System.IO.File.OpenRead(pcFileName))
+                {
+                    lwMD5Hash = loMD5.ComputeHash(loFileStream);
+                    return Convert.ToBase64String(lwMD5Hash);
+                }
+            }
         }
     }
 }
