@@ -30,19 +30,5 @@
                                                 "\nYou can now play with mods via the 'Launch Game With Mods' Option." +
                                                 "\nYou will need to repeat this step whenever the game is updated." +
                                                 "\nThis can be done via the 'Repack Exe' Option.";
-
-        public const string cDefaultDir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MotoGP™25";
-        
-        public const string cGameName = "MotoGP™25";
-        
-        public const string cExeName = "motogp25-Win64-Shipping.exe";
-
-        public const string cExeDir = "\\motogp25\\Binaries\\Win64\\" + cExeName;
-        
-        public const string cEACConfigName = "Settings.json";
-        
-        public const string cEACConfigDir = "\\EasyAntiCheat\\" + cEACConfigName;
-
-        public const string cPatchedDir = "D:\\Mods\\MotoGP Mods\\Tools\\Mod Manager\\";
     }
 }

@@ -9,14 +9,14 @@ namespace MGP_25_Mod_Launcher
             if (string.IsNullOrWhiteSpace(pcDirectory) || !Directory.Exists(pcDirectory)) return false;
 
             // Determines if this directory is *actually* the game directory
-            return System.IO.File.Exists(trimDirectory(pcDirectory) + UIStrings.cExeDir);
+            return System.IO.File.Exists(trimDirectory(pcDirectory) + DirConstants.cExeDir);
         }
 
         public static string trimDirectory(string pcDirectory)
         {
-            int liTrimmedStringLength = pcDirectory.LastIndexOf(UIStrings.cGameName) + UIStrings.cGameName.Length;
+            int liTrimmedStringLength = pcDirectory.LastIndexOf(DirConstants.cGameName) + DirConstants.cGameName.Length;
 
-            if (liTrimmedStringLength >= UIStrings.cGameName.Length)
+            if (liTrimmedStringLength >= DirConstants.cGameName.Length)
             {
                 return pcDirectory.Substring(0, liTrimmedStringLength);
             }
