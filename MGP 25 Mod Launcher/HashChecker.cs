@@ -22,8 +22,11 @@ namespace MGP_25_Mod_Launcher
 
         public void checkBackedUpExeHashes()
         {
-            lcVanillaHash = Utilities.getMD5HashAsBase64(DirConstants.cVanillaDir + DirConstants.cExeName);
-            lcModdedHash = Utilities.getMD5HashAsBase64(DirConstants.cModdedDir + DirConstants.cExeName);
+            if(File.Exists(DirConstants.cVanillaDir + DirConstants.cExeName) && File.Exists(DirConstants.cModdedDir + DirConstants.cExeName))
+            {
+                lcVanillaHash = Utilities.getMD5HashAsBase64(DirConstants.cVanillaDir + DirConstants.cExeName);
+                lcModdedHash = Utilities.getMD5HashAsBase64(DirConstants.cModdedDir + DirConstants.cExeName);
+            }
         }
 
         public string getModdedHash()

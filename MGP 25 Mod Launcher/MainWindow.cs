@@ -22,7 +22,7 @@ namespace MGP_25_Mod_Launcher
 
             oHashChecker = new HashChecker(oSettings.getSetting("vanillaHash"), oSettings.getSetting("moddedHash"));
 
-            if (oHashChecker.getVanillaHash() == "")
+            if (oHashChecker.getVanillaHash() == "" && oSettings.getSetting("patchedExe") == "true")
             {
                 storeChecksums();
             }
