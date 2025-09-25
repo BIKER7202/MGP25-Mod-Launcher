@@ -13,7 +13,10 @@
         public const string cErrorTitle = "Error";
         
         public const string cErrorDirText = "This directory is not a MotoGP 25 game directory, please select a valid MotoGP 25 game directory.";
-        
+
+        public const string cErrorDirExitText = "No directory selected, a valid MotoGP 25 game directory must be selected to use the Launcher." +
+                                                "\nThe program will now close.";
+
         public const string cErrorPatchText = "Patching Failed!\n" +
                                               "\nMake sure your exe is a valid MotoGP 25 executable and is not already patched." +
                                               "\nThe program will now close.";

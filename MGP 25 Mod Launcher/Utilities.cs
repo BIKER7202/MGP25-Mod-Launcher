@@ -5,21 +5,22 @@ namespace MGP_25_Mod_Launcher
 {
     internal static class Utilities
     {
-        public static bool isValidGameDirectory(string pcDirectory)
+        public static string returnValidGameDirectory(string pcDirectory)
         {
-            if (string.IsNullOrWhiteSpace(pcDirectory) || !Directory.Exists(pcDirectory)) return false;
+            int liNumberOfFolders;
 
-            // Determines if this directory is *actually* the game directory
-            return System.IO.File.Exists(trimDirectory(pcDirectory) + DirConstants.cExeDir);
-        }
+            if (string.IsNullOrWhiteSpace(pcDirectory) || !Directory.Exists(pcDirectory)) return "";
 
-        public static string trimDirectory(string pcDirectory)
-        {
-            int liTrimmedStringLength = pcDirectory.LastIndexOf(DirConstants.cGameName) + DirConstants.cGameName.Length;
+            liNumberOfFolders = pcDirectory.Split("\\").Length - 1;
 
-            if (liTrimmedStringLength >= DirConstants.cGameName.Length)
+            // Goes through each folder in the path and if the relative locations of the bootstrap + shipping exe can be found it is a valid directory
+            for (int li = 0; li < liNumberOfFolders; li++)
             {
-                return pcDirectory.Substring(0, liTrimmedStringLength);
+                if (System.IO.File.Exists(pcDirectory + DirConstants.cExeDir) && System.IO.File.Exists(pcDirectory + "\\" + DirConstants.cBootstrapName))
+                {
+                    return pcDirectory;
+                }
+                pcDirectory = pcDirectory.Substring(0, pcDirectory.LastIndexOf("\\"));
             }
 
             return "";

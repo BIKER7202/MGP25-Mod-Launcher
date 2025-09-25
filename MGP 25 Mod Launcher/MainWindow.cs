@@ -99,7 +99,22 @@ namespace MGP_25_Mod_Launcher
 
                 if (lDialogResult == DialogResult.OK)
                 {
-                    lbValidDir = Utilities.isValidGameDirectory(lcDirectory);
+                    lcDirectory = Utilities.returnValidGameDirectory(lcDirectory);
+                    lbValidDir = (lcDirectory != "");
+                }
+
+                // Prevents loop that would previously occur when cancelling
+                else if (lDialogResult == DialogResult.Cancel)
+                {
+                    if(cGameDir != "")
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        Utilities.displayError(UIStrings.cErrorDirExitText);
+                        Environment.Exit(0);
+                    }
                 }
 
                 // After so that the error appears if the dialog was closed instead of Okayed
@@ -111,7 +126,7 @@ namespace MGP_25_Mod_Launcher
 
             Utilities.displayInformation(UIStrings.cSuccessDirText);
 
-            cGameDir = Utilities.trimDirectory(lcDirectory);
+            cGameDir = lcDirectory;
             oSettings.setSetting("gameDir", cGameDir);
         }
 
