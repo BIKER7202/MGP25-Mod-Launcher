@@ -18,7 +18,8 @@ namespace MGP_25_Mod_Launcher
         {
             string lcExeToCopy;
             string lcEACConfigToCopy;
-            string lcProcess = pcGameDir + DirConstants.cExeDir;
+            string lcExeToReplace = pcGameDir + DirConstants.cExeDir;
+            string lcProcess = pcGameDir + "\\" + DirConstants.cBootstrapName;
 
             ProcessStartInfo loProcessToStart = new ProcessStartInfo();
             loProcessToStart.UseShellExecute = false;
@@ -36,9 +37,9 @@ namespace MGP_25_Mod_Launcher
                 lcEACConfigToCopy = DirConstants.cModdedDir + DirConstants.cEACConfigName;
             }
 
-            if (File.Exists(lcProcess) && File.Exists(lcExeToCopy) && File.Exists(lcEACConfigToCopy))
+            if (File.Exists(lcProcess) && File.Exists(lcExeToReplace) && File.Exists(lcExeToCopy) && File.Exists(lcEACConfigToCopy))
             {
-                File.Copy(lcExeToCopy, lcProcess, true);
+                File.Copy(lcExeToCopy, lcExeToReplace, true);
                 File.Copy(lcEACConfigToCopy, pcGameDir + DirConstants.cEACConfigDir, true);
                 Process.Start(loProcessToStart);
                 Environment.Exit(0);

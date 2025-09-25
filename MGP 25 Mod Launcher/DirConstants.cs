@@ -18,6 +18,8 @@
 
         public const string cExeDir = "\\motogp25\\Binaries\\Win64\\" + cExeName;
 
+        public const string cBootstrapName = "start_protected_game.exe";
+
         public const string cEACConfigName = "Settings.json";
 
         public const string cEACConfigDir = "\\EasyAntiCheat\\" + cEACConfigName;
