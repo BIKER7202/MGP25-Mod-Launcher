@@ -15,7 +15,7 @@ namespace MGP_25_Mod_Launcher
         public Settings() 
         {
             bConfigExists = false;
-            cConfigLocation = DirConstants.cWorkingDir + "\\settings.txt";
+            cConfigLocation = DirConstants.cSettingsDir + "\\settings.txt";
             cConfigFileLines = new List<string>();
             oSettings = new Dictionary<string, string>();
             loadSettings();
@@ -27,6 +27,14 @@ namespace MGP_25_Mod_Launcher
             string lcSettingValue;
 
             bConfigExists = File.Exists(cConfigLocation);
+
+            // Backwards compatability - If old version used previously then settings will be in working dir
+            if (!bConfigExists && File.Exists(DirConstants.cWorkingDir + "\\settings.txt"))
+            {
+                Directory.CreateDirectory(DirConstants.cSettingsDir);
+                File.Copy(DirConstants.cWorkingDir + "\\settings.txt", cConfigLocation, true);
+                bConfigExists |= true;
+            }
 
             if (bConfigExists)
             {

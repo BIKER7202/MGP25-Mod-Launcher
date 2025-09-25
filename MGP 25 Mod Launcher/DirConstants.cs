@@ -6,7 +6,7 @@
 
         public static readonly string cDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory); // Same as above
         
-        public static readonly string cDocumentsDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Same as above
+        public static readonly string cAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData); // Same as above
 
         public static readonly string cLauncherName = AppDomain.CurrentDomain.FriendlyName;
 
@@ -27,5 +27,7 @@
         public static readonly string cModdedDir = cWorkingDir + "\\modded\\";
         
         public static readonly string cVanillaDir = cWorkingDir + "\\vanilla\\";
+
+        public static readonly string cSettingsDir = cAppDataDir + "\\MGP 25 Mod Launcher";
     }
 }
