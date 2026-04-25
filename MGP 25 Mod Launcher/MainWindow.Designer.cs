@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             createShortcuts = new Button();
-            // New dropdown and label for selecting a game
             selectGameDropdown = new ComboBox();
             selectGameLabel = new Label();
             setGameDirectory = new Button();
@@ -66,6 +65,8 @@
             selectGameDropdown.Size = new Size(311, 36);
             selectGameDropdown.TabIndex = 2;
             selectGameDropdown.SelectedIndexChanged += selectGameDropdown_SelectedIndexChanged;
+            selectGameDropdown.Items.Clear();
+            selectGameDropdown.Items.AddRange(DirConstants.cSupportedGames);
             // 
             // setGameDirectory
             // 
@@ -116,7 +117,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "MainWindow";
-            Text = "BIKER's MotoGP 25 Mod Launcher";
+            Text = "BIKER's MotoGP Mod Launcher";
             Load += MainWindow_Load;
             ResumeLayout(false);
         }
