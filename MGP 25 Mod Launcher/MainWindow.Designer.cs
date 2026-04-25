@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             createShortcuts = new Button();
-            repatchExe = new Button();
+            // New dropdown and label for selecting a game
+            selectGameDropdown = new ComboBox();
+            selectGameLabel = new Label();
             setGameDirectory = new Button();
             launchModdedGame = new Button();
             launchVanillaGame = new Button();
@@ -38,7 +40,7 @@
             // createShortcuts
             // 
             createShortcuts.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            createShortcuts.Location = new Point(51, 153);
+            createShortcuts.Location = new Point(51, 238);
             createShortcuts.Name = "createShortcuts";
             createShortcuts.Size = new Size(311, 65);
             createShortcuts.TabIndex = 0;
@@ -46,16 +48,24 @@
             createShortcuts.UseVisualStyleBackColor = true;
             createShortcuts.Click += createShortcuts_Click;
             // 
-            // repatchExe
+            // selectGameLabel
             // 
-            repatchExe.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            repatchExe.Location = new Point(51, 238);
-            repatchExe.Name = "repatchExe";
-            repatchExe.Size = new Size(311, 65);
-            repatchExe.TabIndex = 1;
-            repatchExe.Text = "Repatch Exe";
-            repatchExe.UseVisualStyleBackColor = true;
-            repatchExe.Click += repatchExe_Click;
+            selectGameLabel.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            selectGameLabel.Location = new Point(51, 157);
+            selectGameLabel.Name = "selectGameLabel";
+            selectGameLabel.Size = new Size(311, 25);
+            selectGameLabel.TabIndex = 1;
+            selectGameLabel.Text = "Select Game";
+            selectGameLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // selectGameDropdown
+            // 
+            selectGameDropdown.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            selectGameDropdown.Location = new Point(51, 182);
+            selectGameDropdown.Name = "selectGameDropdown";
+            selectGameDropdown.Size = new Size(311, 36);
+            selectGameDropdown.TabIndex = 2;
+            selectGameDropdown.SelectedIndexChanged += selectGameDropdown_SelectedIndexChanged;
             // 
             // setGameDirectory
             // 
@@ -99,7 +109,8 @@
             ClientSize = new Size(794, 591);
             Controls.Add(setGameDirectory);
             Controls.Add(createShortcuts);
-            Controls.Add(repatchExe);
+            Controls.Add(selectGameDropdown);
+            Controls.Add(selectGameLabel);
             Controls.Add(launchModdedGame);
             Controls.Add(launchVanillaGame);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -113,7 +124,8 @@
         #endregion
         private Button createShortcuts;
         private Button setGameDirectory;
-        private Button repatchExe;
+        private ComboBox selectGameDropdown;
+        private Label selectGameLabel;
         private Button launchModdedGame;
         private Button launchVanillaGame;
     }

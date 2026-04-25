@@ -2,23 +2,23 @@
 {
     internal static class UIStrings
     {
-        public const string cWelcomeText = "Welcome to BIKER's MotoGP 25 Mod Launcher!\n" +
+        public const string cWelcomeText = "Welcome to BIKER's MotoGP Mod Launcher!\n" +
                                            "\nAs this is your first time opening the app you need to provide the location of your game files." +
                                            "\nTo start, hit \"OK\"";
         
         public const string cWelcomeTitle = "Welcome";
         
-        public const string cBrowserTitle = "Select the MotoGP 25 game directory";
+        public const string cBrowserTitle = "Select the &1 game directory";
 
         public const string cErrorTitle = "Error";
         
-        public const string cErrorDirText = "This directory is not a MotoGP 25 game directory, please select a valid MotoGP 25 game directory.";
+        public const string cErrorDirText = "This directory is not a &1 game directory, please select a valid &1 game directory.";
 
-        public const string cErrorDirExitText = "No directory selected, a valid MotoGP 25 game directory must be selected to use the Launcher." +
+        public const string cErrorDirExitText = "No directory selected, a valid &1 game directory must be selected to use the Launcher." +
                                                 "\nThe program will now close.";
 
         public const string cErrorPatchText = "Patching Failed!\n" +
-                                              "\nMake sure your exe is a valid MotoGP 25 executable and is not already patched." +
+                                              "\nMake sure your exe is a valid &1 executable and is not already patched." +
                                               "\nThe program will now close.";
 
         public const string cErrorLaunchText = "Failed To Launch!\n" +
@@ -26,7 +26,7 @@
 
         public const string cSuccessTitle = "Success";
 
-        public const string cSuccessDirText = "Your MotoGP 25 game directory has been successfully set!\n" +
+        public const string cSuccessDirText = "Your &1 game directory has been successfully set!\n" +
                                               "\nIf you ever need to change this in the future you can via the 'Change Game Directory' Option.";
 
         public const string cSuccessPatchText = "Patching Successful!\n" +

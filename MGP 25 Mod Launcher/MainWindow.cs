@@ -10,15 +10,32 @@ namespace MGP_25_Mod_Launcher
         private string cGameDir;
         private Settings oSettings;
         private HashChecker oHashChecker;
+        private string cCurrentGame;
 
         public MainWindow()
         {
             string[] lcCommandArgs;
+            string lcSelected;
+            int liIndex = 0;
 
             InitializeComponent();
 
             oSettings = new Settings();
             cGameDir = oSettings.getSetting("gameDir");
+
+            // Populate the Select Game dropdown from DirConstants and set selected item from settings
+            selectGameDropdown.Items.Clear();
+            selectGameDropdown.Items.AddRange(DirConstants.cSupportedGames);
+
+            lcSelected = oSettings.getSetting("selectedGame");
+            if (!string.IsNullOrEmpty(lcSelected))
+            {
+                liIndex = Array.IndexOf(DirConstants.cSupportedGames, lcSelected);
+                if (liIndex < 0) liIndex = 0;
+            }
+
+            selectGameDropdown.SelectedIndex = liIndex;
+            cCurrentGame = DirConstants.cSupportedGames[selectGameDropdown.SelectedIndex];
 
             oHashChecker = new HashChecker(oSettings.getSetting("vanillaHash"), oSettings.getSetting("moddedHash"));
 
@@ -84,7 +101,7 @@ namespace MGP_25_Mod_Launcher
             DialogResult lDialogResult;
 
             lFolderBrowser = new FolderBrowserDialog();
-            lFolderBrowser.Description = UIStrings.cBrowserTitle;
+            lFolderBrowser.Description = UIStrings.cBrowserTitle.Replace("&1", cCurrentGame);
             lFolderBrowser.UseDescriptionForTitle = true;
 
             if (Directory.Exists(DirConstants.cDefaultGameDir))
@@ -112,7 +129,7 @@ namespace MGP_25_Mod_Launcher
                     }
                     else
                     {
-                        Utilities.displayError(UIStrings.cErrorDirExitText);
+                        Utilities.displayError(UIStrings.cErrorDirExitText.Replace("&1", cCurrentGame));
                         Environment.Exit(0);
                     }
                 }
@@ -120,11 +137,11 @@ namespace MGP_25_Mod_Launcher
                 // After so that the error appears if the dialog was closed instead of Okayed
                 if (!lbValidDir)
                 {
-                    Utilities.displayError(UIStrings.cErrorDirText);
+                    Utilities.displayError(UIStrings.cErrorDirText.Replace("&1", cCurrentGame));
                 }
             }
 
-            Utilities.displayInformation(UIStrings.cSuccessDirText);
+            Utilities.displayInformation(UIStrings.cSuccessDirText.Replace("&1", cCurrentGame));
 
             cGameDir = lcDirectory;
             oSettings.setSetting("gameDir", cGameDir);
@@ -145,7 +162,7 @@ namespace MGP_25_Mod_Launcher
             }
             else
             {
-                Utilities.displayError(UIStrings.cErrorPatchText);
+                Utilities.displayError(UIStrings.cErrorPatchText.Replace("&1", cCurrentGame));
                 Application.Exit();
             }
 
@@ -164,6 +181,16 @@ namespace MGP_25_Mod_Launcher
         {
             Utilities.addShortcutToDesktop(cGameDir, 0);
             Utilities.addShortcutToDesktop(cGameDir, 1);
+        }
+
+        private void selectGameDropdown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string lcSelected = selectGameDropdown.SelectedItem as string;
+            if (!string.IsNullOrEmpty(lcSelected))
+            {
+                oSettings.setSetting("selectedGame", lcSelected);
+                cCurrentGame = lcSelected;
+            }
         }
 
         private void launchModdedGame_Click(object sender, EventArgs e)
@@ -190,10 +217,7 @@ namespace MGP_25_Mod_Launcher
             Utilities.displayError(UIStrings.cErrorLaunchText);
         }
 
-        private void repatchExe_Click(object sender, EventArgs e)
-        {
-            patchGameExe();
-        }
+
 
         private void setGameDirectory_Click(object sender, EventArgs e)
         {

@@ -29,5 +29,7 @@
         public static readonly string cVanillaDir = cWorkingDir + "\\vanilla\\";
 
         public static readonly string cSettingsDir = cAppDataDir + "\\MGP 25 Mod Launcher";
+
+        public static readonly string[] cSupportedGames = new string[] { "MotoGP 25", "MotoGP 26", "RIDE 6" };
     }
 }
