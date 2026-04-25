@@ -5,91 +5,72 @@ using System.Windows.Forms;
 
 namespace MGP_25_Mod_Launcher
 {
+    public enum LaunchType
+    {
+        None,
+        Modded,
+        Vanilla
+    }
+
     public partial class MainWindow : Form
     {
         private string cGameDir;
         private Settings oSettings;
         private HashChecker oHashChecker;
         private string cCurrentGame;
+        private LaunchType oLaunchType;
 
         public MainWindow()
         {
-            string[] lcCommandArgs;
-            string lcSelected;
-            int liIndex = 0;
+            bool lbUsingOldMethod = false;
 
-            InitializeComponent();
+            parseCommandLineArgs();
 
             oSettings = new Settings();
-            cGameDir = oSettings.getSetting("gameDir");
 
-            // Populate the Select Game dropdown from DirConstants and set selected item from settings
-            selectGameDropdown.Items.Clear();
-            selectGameDropdown.Items.AddRange(DirConstants.cSupportedGames);
-
-            lcSelected = oSettings.getSetting("selectedGame");
-            if (!string.IsNullOrEmpty(lcSelected))
+            if (oLaunchType == LaunchType.None)
             {
-                liIndex = Array.IndexOf(DirConstants.cSupportedGames, lcSelected);
-                if (liIndex < 0) liIndex = 0;
+                cCurrentGame = oSettings.getSetting("selectedGame");
             }
 
-            selectGameDropdown.SelectedIndex = liIndex;
-            cCurrentGame = DirConstants.cSupportedGames[selectGameDropdown.SelectedIndex];
+            // This should mean that user is upgrading from older launcher version, so we need to unpatch the exe and update the names of the settings
+            lbUsingOldMethod = (oSettings.getSetting("patchedExe") != "");
 
+            // Always default to MotoGP 25 if no game is selected
+            if (string.IsNullOrEmpty(cCurrentGame))
+            {
+                cCurrentGame = DirConstants.cSupportedGames[0];
+            }
+
+            if (lbUsingOldMethod)
+            {
+                updateToNewMethod();
+            }
+
+            oSettings.setGame(cCurrentGame);
+            cGameDir = oSettings.getSetting("gameDir");
             oHashChecker = new HashChecker(oSettings.getSetting("vanillaHash"), oSettings.getSetting("moddedHash"));
 
-            if (oHashChecker.getVanillaHash() == "" && oSettings.getSetting("patchedExe") == "true")
+            if (oLaunchType == LaunchType.Modded)
             {
-                storeChecksums();
+                GameLauncher.launchModdedGame(cGameDir);
+            }
+            else if (oLaunchType == LaunchType.Vanilla)
+            {
+                GameLauncher.launchVanillaGame(cGameDir);
             }
 
-            lcCommandArgs = Environment.GetCommandLineArgs();
-
-            foreach (string lcArgument in lcCommandArgs)
-            {
-                if (lcArgument == "-LaunchModded")
-                {
-                    if (!oHashChecker.isGameExeHashKnown(cGameDir))
-                    {
-                        Utilities.displayInformation(UIStrings.cUpdateDetectedText, UIStrings.cInfoTitle);
-                        patchGameExe();
-                    }
-
-                    GameLauncher.launchModdedGame(cGameDir);
-                }
-                else if (lcArgument == "-LaunchDefault")
-                {
-                    if (!oHashChecker.isGameExeHashKnown(cGameDir))
-                    {
-                        Utilities.displayInformation(UIStrings.cUpdateDetectedText, UIStrings.cInfoTitle);
-                        patchGameExe();
-                    }
-
-                    GameLauncher.launchVanillaGame(cGameDir);
-                }
-            }
+            InitializeComponent();
         }
 
         private void MainWindow_Load(object sender, System.EventArgs e)
         {
-            if (cGameDir == "")
+            if (!oSettings.getDoesConfigExist())
             {
                 // Welcome message loaded on first launch
                 Utilities.displayInformation(UIStrings.cWelcomeText, UIStrings.cWelcomeTitle);
 
                 queryGameDirectory();
-            }
-
-            if (oSettings.getSetting("patchedExe") != "true")
-            {
-                patchGameExe();
-            }
-
-            // Users were having issues when game updates were applied, now hashing Exe for detecting updates
-            if (oSettings.getSetting("storedChecksums") != "true")
-            {
-                storeChecksums();
             }
         }
 
@@ -177,6 +158,72 @@ namespace MGP_25_Mod_Launcher
             oSettings.setSetting("storedChecksums", "true");
         }
 
+        private void setSelectedGameDropDown()
+        {
+            int liIndex = 0;
+            
+            if (!string.IsNullOrEmpty(cCurrentGame))
+            {
+                liIndex = Array.IndexOf(DirConstants.cSupportedGames, cCurrentGame);
+                if (liIndex < 0) liIndex = 0;
+            }
+
+            selectGameDropdown.SelectedIndex = liIndex;
+        }
+
+        private void updateToNewMethod()
+        {
+            string lcDir = oSettings.getSetting("gameDir");
+
+            HashChecker loHashChecker = new HashChecker(oSettings.getSetting("vanillaHash"), oSettings.getSetting("moddedHash"));
+
+            // Pre hash version, so even older
+            if (oHashChecker.getVanillaHash() == "" && oSettings.getSetting("patchedExe") == "true")
+            {
+                storeChecksums();
+            }
+
+            // If we didn't know the hash then it's a vanilla update so can ignore
+            if (oHashChecker.isGameExeHashKnown(lcDir))
+            {
+                // Copy vanilla exe over the game one as we don't patch exe anymore
+                File.Copy(DirConstants.cVanillaDir + DirConstants.cExeName, cGameDir + DirConstants.cExeDir, true);
+            }
+            
+            oSettings.clearSettings();
+            oSettings.setGame("MotoGP 25");
+            oSettings.setSetting("gameDir", lcDir);
+        }
+
+        private void parseCommandLineArgs()
+        {
+            string[] lcCommandArgs = Environment.GetCommandLineArgs();
+            int li;
+
+            oLaunchType = LaunchType.None;
+
+            foreach (string lcArgument in lcCommandArgs)
+            {
+                for (li = 0; li < DirConstants.cSupportedGames.Length; li++)
+                {
+                    if (lcArgument == "-" + DirConstants.cSupportedGames[li].Replace(" ", ""))
+                    {
+                        cCurrentGame = DirConstants.cSupportedGames[li];
+                        break;
+                    }
+                }
+
+                if (lcArgument == "-LaunchModded")
+                {
+                    oLaunchType = LaunchType.Modded;
+                }
+                else if (lcArgument == "-LaunchDefault")
+                {
+                    oLaunchType = LaunchType.Vanilla;
+                }
+            }
+        }
+
         private void createShortcuts_Click(object sender, EventArgs e)
         {
             Utilities.addShortcutToDesktop(cGameDir, 0);
@@ -185,12 +232,10 @@ namespace MGP_25_Mod_Launcher
 
         private void selectGameDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string lcSelected = selectGameDropdown.SelectedItem as string;
-            if (!string.IsNullOrEmpty(lcSelected))
-            {
-                oSettings.setSetting("selectedGame", lcSelected);
-                cCurrentGame = lcSelected;
-            }
+            cCurrentGame = DirConstants.cSupportedGames[selectGameDropdown.SelectedIndex];
+            oSettings.setGame(cCurrentGame);
+            oSettings.setSetting("selectedGame", cCurrentGame);
+            cGameDir = oSettings.getSetting("gameDir");
         }
 
         private void launchModdedGame_Click(object sender, EventArgs e)
@@ -216,8 +261,6 @@ namespace MGP_25_Mod_Launcher
             GameLauncher.launchVanillaGame(cGameDir);
             Utilities.displayError(UIStrings.cErrorLaunchText);
         }
-
-
 
         private void setGameDirectory_Click(object sender, EventArgs e)
         {

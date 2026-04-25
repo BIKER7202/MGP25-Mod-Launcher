@@ -10,6 +10,7 @@ namespace MGP_25_Mod_Launcher
         private List<string> cConfigFileLines;
         Dictionary<string, string> oSettings;
         private bool bConfigExists;
+        private string cCurrentGameName;
 
 
         public Settings() 
@@ -18,6 +19,7 @@ namespace MGP_25_Mod_Launcher
             cConfigLocation = DirConstants.cSettingsDir + "\\settings.txt";
             cConfigFileLines = new List<string>();
             oSettings = new Dictionary<string, string>();
+            cCurrentGameName = "";
             loadSettings();
         }
 
@@ -33,7 +35,7 @@ namespace MGP_25_Mod_Launcher
             {
                 Directory.CreateDirectory(DirConstants.cSettingsDir);
                 File.Copy(DirConstants.cWorkingDir + "\\settings.txt", cConfigLocation, true);
-                bConfigExists |= true;
+                bConfigExists = true;
             }
 
             if (bConfigExists)
@@ -69,6 +71,11 @@ namespace MGP_25_Mod_Launcher
             }
         }
 
+        public void clearSettings()
+        {
+            oSettings.Clear();
+        }
+
         public bool getDoesConfigExist()
         {
             return bConfigExists;
@@ -76,6 +83,11 @@ namespace MGP_25_Mod_Launcher
 
         public string getSetting(string pcSettingName)
         {
+            if (pcSettingName != "selectedGame" && cCurrentGameName != "")
+            {
+                pcSettingName = cCurrentGameName + "_" + pcSettingName;
+            }
+
             if (oSettings.ContainsKey(pcSettingName))
             {
                 return oSettings[pcSettingName];
@@ -86,6 +98,11 @@ namespace MGP_25_Mod_Launcher
 
         public void setSetting(string pcSettingName, string pcSettingValue)
         {
+            if (pcSettingName != "selectedGame" && cCurrentGameName != "")
+            {
+                pcSettingName = cCurrentGameName + "_" + pcSettingName;
+            }
+
             if (oSettings.ContainsKey(pcSettingName))
             {
                 oSettings[pcSettingName] = pcSettingValue;
@@ -96,6 +113,11 @@ namespace MGP_25_Mod_Launcher
             }
 
             saveSettings();
+        }
+
+        public void setGame(string pcGameName)
+        {
+            cCurrentGameName = pcGameName;
         }
     }
 }

@@ -67,6 +67,8 @@
             selectGameDropdown.SelectedIndexChanged += selectGameDropdown_SelectedIndexChanged;
             selectGameDropdown.Items.Clear();
             selectGameDropdown.Items.AddRange(DirConstants.cSupportedGames);
+            selectGameDropdown.DropDownStyle = ComboBoxStyle.DropDownList;
+            setSelectedGameDropDown();
             // 
             // setGameDirectory
             // 
