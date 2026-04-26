@@ -40,5 +40,12 @@
                                                   "\nThe Launcher will now repatch this updated file";
 
         public const string cGameAlreadyPatched = "Game Already Patched!";
+
+        public const string cSelectGameTitle = "Select Game";
+
+        public const string cSelectGameText = "Please select which game you would like to configure:";
+
+        public const string cErrorSelectGameText = "You must select a game in order to configure the launcher.\n" +
+                                                   "\nThe program will now close.";
     }
 }

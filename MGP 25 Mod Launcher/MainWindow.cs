@@ -33,6 +33,8 @@ namespace MGP_25_Mod_Launcher
                 cCurrentGame = oSettings.getSetting("selectedGame");
             }
 
+            initialSetup();
+
             // This should mean that user is upgrading from older launcher version, so we need to unpatch the exe and update the names of the settings
             lbUsingOldMethod = (oSettings.getSetting("patchedExe") != "");
 
@@ -65,12 +67,35 @@ namespace MGP_25_Mod_Launcher
 
         private void MainWindow_Load(object sender, System.EventArgs e)
         {
+        }
+
+        private void initialSetup()
+        {
             if (!oSettings.getDoesConfigExist())
             {
                 // Welcome message loaded on first launch
                 Utilities.displayInformation(UIStrings.cWelcomeText, UIStrings.cWelcomeTitle);
 
+                // Show game selection dialog
+                showGameSelectionDialog();
+
                 queryGameDirectory();
+            }
+        }
+
+        private void showGameSelectionDialog()
+        {
+            GameSelectionDialog loGameSelectionDialog = new GameSelectionDialog();
+            DialogResult loGameSelectionDialogResult = loGameSelectionDialog.ShowDialog();
+
+            if (loGameSelectionDialogResult == DialogResult.OK)
+            {
+                cCurrentGame = loGameSelectionDialog.cSelectedGame;
+            }
+            else if (loGameSelectionDialogResult == DialogResult.Cancel)
+            {
+                Utilities.displayError(UIStrings.cErrorSelectGameText);
+                Environment.Exit(0);
             }
         }
 
@@ -104,7 +129,7 @@ namespace MGP_25_Mod_Launcher
                 // Prevents loop that would previously occur when cancelling
                 else if (lDialogResult == DialogResult.Cancel)
                 {
-                    if(cGameDir != "")
+                    if(!string.IsNullOrEmpty(cGameDir))
                     {
                         return;
                     }
@@ -178,13 +203,13 @@ namespace MGP_25_Mod_Launcher
             HashChecker loHashChecker = new HashChecker(oSettings.getSetting("vanillaHash"), oSettings.getSetting("moddedHash"));
 
             // Pre hash version, so even older
-            if (oHashChecker.getVanillaHash() == "" && oSettings.getSetting("patchedExe") == "true")
+            if (loHashChecker.getVanillaHash() == "" && oSettings.getSetting("patchedExe") == "true")
             {
                 storeChecksums();
             }
 
             // If we didn't know the hash then it's a vanilla update so can ignore
-            if (oHashChecker.isGameExeHashKnown(lcDir))
+            if (loHashChecker.isGameExeHashKnown(lcDir))
             {
                 // Copy vanilla exe over the game one as we don't patch exe anymore
                 File.Copy(DirConstants.cVanillaDir + DirConstants.cExeName, cGameDir + DirConstants.cExeDir, true);
