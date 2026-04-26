@@ -16,7 +16,7 @@ namespace MGP_25_Mod_Launcher
             // Goes through each folder in the path and if the relative locations of the bootstrap + shipping exe can be found it is a valid directory
             for (int li = 0; li < liNumberOfFolders; li++)
             {
-                if (System.IO.File.Exists(pcDirectory + DirConstants.cExeDir) && System.IO.File.Exists(pcDirectory + "\\" + DirConstants.cBootstrapName))
+                if (System.IO.File.Exists(pcDirectory + DirConstants.cEACConfigDir) && System.IO.File.Exists(pcDirectory + "\\" + DirConstants.cBootstrapName))
                 {
                     return pcDirectory;
                 }
