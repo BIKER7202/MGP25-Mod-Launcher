@@ -37,7 +37,7 @@
         public const string cInfoTitle = "Information";
 
         public const string cUpdateDetectedText = "Game Update Detected!\n" +
-                                                  "\nThe Launcher will now repatch this updated file";
+                                                  "\nThe Launcher will now backup this updated file";
 
         public const string cGameAlreadyPatched = "Game Already Patched!";
 

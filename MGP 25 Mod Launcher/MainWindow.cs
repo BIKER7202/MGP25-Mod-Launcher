@@ -152,33 +152,14 @@ namespace MGP_25_Mod_Launcher
 
             cGameDir = lcDirectory;
             oSettings.setSetting("gameDir", cGameDir);
-        }
-
-        private void patchGameExe()
-        {
-            if (oHashChecker.isGameExeHashKnown(cGameDir))
-            {
-                Utilities.displayInformation(UIStrings.cGameAlreadyPatched, UIStrings.cInfoTitle);
-                return;
-            }
-
-            if (Patcher.patchGame(cGameDir))
-            {
-                Utilities.displayInformation(UIStrings.cSuccessPatchText);
-                oSettings.setSetting("patchedExe", "true");
-            }
-            else
-            {
-                Utilities.displayError(UIStrings.cErrorPatchText.Replace("&1", cCurrentGame));
-                Application.Exit();
-            }
-
+            Patcher.backupOriginalGameFiles(cGameDir + "\\" + DirConstants.cBootstrapName, cGameDir + DirConstants.cEACConfigDir, cCurrentGame);
+            Patcher.patchSettingsFile(cGameDir, cCurrentGame);
             storeChecksums();
         }
 
         private void storeChecksums()
         {
-            oHashChecker.checkBackedUpExeHashes();
+            oHashChecker.checkBackedUpBootstrapHashes(cCurrentGame);
             oSettings.setSetting("vanillaHash", oHashChecker.getVanillaHash());
             oSettings.setSetting("moddedHash", oHashChecker.getModdedHash());
             oSettings.setSetting("storedChecksums", "true");
@@ -201,24 +182,32 @@ namespace MGP_25_Mod_Launcher
         {
             string lcDir = oSettings.getSetting("gameDir");
 
-            HashChecker loHashChecker = new HashChecker(oSettings.getSetting("vanillaHash"), oSettings.getSetting("moddedHash"));
+            oHashChecker = new HashChecker(oSettings.getSetting("vanillaHash"), oSettings.getSetting("moddedHash"));
 
             // Pre hash version, so even older
-            if (loHashChecker.getVanillaHash() == "" && oSettings.getSetting("patchedExe") == "true")
+            if (oHashChecker.getVanillaHash() == "" && oSettings.getSetting("patchedExe") == "true")
             {
                 storeChecksums();
             }
 
             // If we didn't know the hash then it's a vanilla update so can ignore
-            if (loHashChecker.isGameExeHashKnown(lcDir))
+            if (oHashChecker.isGameExeHashKnown(lcDir))
             {
                 // Copy vanilla exe over the game one as we don't patch exe anymore
                 File.Copy(DirConstants.cVanillaDir + DirConstants.cExeName, cGameDir + DirConstants.cExeDir, true);
             }
-            
+
+            Patcher.backupOriginalGameFiles(lcDir + "\\" + DirConstants.cBootstrapName, DirConstants.cVanillaDir + DirConstants.cEACConfigName, "MotoGP 25");
+
+            if (File.Exists(DirConstants.cModdedDir + DirConstants.cEACConfigName))
+            {
+                File.Copy(DirConstants.cModdedDir + DirConstants.cEACConfigName, DirConstants.cModdedDir + "\\MotoGP 25\\" + DirConstants.cEACConfigName, true);
+            }
+
             oSettings.clearSettings();
             oSettings.setGame("MotoGP 25");
             oSettings.setSetting("gameDir", lcDir);
+            storeChecksums();
         }
 
         private void parseCommandLineArgs()
@@ -272,10 +261,10 @@ namespace MGP_25_Mod_Launcher
 
         private void launchModdedGame_Click(object sender, EventArgs e)
         {
-            if (!oHashChecker.isGameExeHashKnown(cGameDir))
+            if (!oHashChecker.isBootstrapExeHashKnown(cGameDir))
             {
                 Utilities.displayInformation(UIStrings.cUpdateDetectedText, UIStrings.cInfoTitle);
-                patchGameExe();
+                Patcher.backupOriginalGameFiles(cGameDir + "\\" + DirConstants.cBootstrapName, cGameDir + DirConstants.cEACConfigDir, cCurrentGame);
             }
 
             GameLauncher.launchModdedGame(cGameDir, cCurrentGame);
@@ -284,10 +273,10 @@ namespace MGP_25_Mod_Launcher
 
         private void launchVanillaGame_Click(object sender, EventArgs e)
         {
-            if (!oHashChecker.isGameExeHashKnown(cGameDir))
+            if (!oHashChecker.isBootstrapExeHashKnown(cGameDir))
             {
                 Utilities.displayInformation(UIStrings.cUpdateDetectedText, UIStrings.cInfoTitle);
-                patchGameExe();
+                Patcher.backupOriginalGameFiles(cGameDir + "\\" + DirConstants.cBootstrapName, cGameDir + DirConstants.cEACConfigDir, cCurrentGame);
             }
 
             GameLauncher.launchVanillaGame(cGameDir, cCurrentGame);

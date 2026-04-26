@@ -19,7 +19,7 @@ namespace MGP_25_Mod_Launcher
             string lcAsiLoaderPath;
             string lcBinaryPath;
             string lcSigBypassPath;
-            string lcExeToCopy;
+            string lcExeToCopy = "";
             string lcGameNameSimplified;
             string lcEACConfigToCopy;
             string lcExeToReplace = pcGameDir + "\\" + DirConstants.cBootstrapName;
@@ -36,18 +36,21 @@ namespace MGP_25_Mod_Launcher
 
             if (piModded == 0)
             {
-                lcExeToCopy = DirConstants.cVanillaDir + "\\" + pcGameName + "\\" + DirConstants.cBootstrapName;
-                lcEACConfigToCopy = DirConstants.cVanillaDir + "\\" + pcGameName + "\\" + DirConstants.cEACConfigName;
+                lcExeToCopy = DirConstants.cVanillaDir + pcGameName + "\\" + DirConstants.cBootstrapName;
+                lcEACConfigToCopy = DirConstants.cVanillaDir + pcGameName + "\\" + DirConstants.cEACConfigName;
+
+                if (!File.Exists(lcExeToCopy))
+                {
+                    return;
+                }
             }
             else
             {
-                lcExeToCopy = DirConstants.cModdedDir + "\\" + pcGameName + "\\" + DirConstants.cBootstrapName;
-                lcEACConfigToCopy = DirConstants.cModdedDir + "\\" + pcGameName + "\\" + DirConstants.cEACConfigName;
+                lcEACConfigToCopy = DirConstants.cModdedDir + pcGameName + "\\" + DirConstants.cEACConfigName;
             }
 
-            if (File.Exists(lcExeToReplace) && File.Exists(lcExeToCopy) && File.Exists(lcEACConfigToCopy))
+            if (File.Exists(lcExeToReplace) && File.Exists(lcEACConfigToCopy))
             {
-                File.Copy(lcExeToCopy, lcExeToReplace, true);
                 File.Copy(lcEACConfigToCopy, pcGameDir + DirConstants.cEACConfigDir, true);
 
                 // If running vanilla these must be put back to or EAC will stop game launching
