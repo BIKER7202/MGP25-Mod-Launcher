@@ -31,5 +31,11 @@
         public static readonly string cSettingsDir = cAppDataDir + "\\MGP 25 Mod Launcher";
 
         public static readonly string[] cSupportedGames = new string[] { "MotoGP 25", "MotoGP 26", "RIDE 6" };
+
+        public const string cBinaryDir = "\\Binaries\\Win64\\";
+
+        public const string cDllName = "dsound.dll";
+
+        public const string cSigBypassName = "UniversalSigBypasser.asi";
     }
 }

@@ -55,11 +55,11 @@ namespace MGP_25_Mod_Launcher
 
             if (oLaunchType == LaunchType.Modded)
             {
-                GameLauncher.launchModdedGame(cGameDir);
+                GameLauncher.launchModdedGame(cGameDir, cCurrentGame);
             }
             else if (oLaunchType == LaunchType.Vanilla)
             {
-                GameLauncher.launchVanillaGame(cGameDir);
+                GameLauncher.launchVanillaGame(cGameDir, cCurrentGame);
             }
 
             InitializeComponent();
@@ -278,7 +278,7 @@ namespace MGP_25_Mod_Launcher
                 patchGameExe();
             }
 
-            GameLauncher.launchModdedGame(cGameDir);
+            GameLauncher.launchModdedGame(cGameDir, cCurrentGame);
             Utilities.displayError(UIStrings.cErrorLaunchText);
         }
 
@@ -290,7 +290,7 @@ namespace MGP_25_Mod_Launcher
                 patchGameExe();
             }
 
-            GameLauncher.launchVanillaGame(cGameDir);
+            GameLauncher.launchVanillaGame(cGameDir, cCurrentGame);
             Utilities.displayError(UIStrings.cErrorLaunchText);
         }
 

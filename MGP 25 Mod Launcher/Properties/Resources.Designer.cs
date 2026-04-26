@@ -61,6 +61,36 @@ namespace MGP_25_Mod_Launcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] asiLoader {
+            get {
+                object obj = ResourceManager.GetObject("asiLoader", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] eacExe {
+            get {
+                object obj = ResourceManager.GetObject("eacExe", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sigBypass {
+            get {
+                object obj = ResourceManager.GetObject("sigBypass", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap WindowBackdrop {
