@@ -91,6 +91,7 @@ namespace MGP_25_Mod_Launcher
             if (loGameSelectionDialogResult == DialogResult.OK)
             {
                 cCurrentGame = loGameSelectionDialog.cSelectedGame;
+                oSettings.setGame(cCurrentGame);
             }
             else if (loGameSelectionDialogResult == DialogResult.Cancel)
             {
@@ -110,9 +111,9 @@ namespace MGP_25_Mod_Launcher
             lFolderBrowser.Description = UIStrings.cBrowserTitle.Replace("&1", cCurrentGame);
             lFolderBrowser.UseDescriptionForTitle = true;
 
-            if (Directory.Exists(DirConstants.cDefaultGameDir))
+            if (Directory.Exists(DirConstants.cDefaultSteamDir))
             {
-                lFolderBrowser.SelectedPath = DirConstants.cDefaultGameDir;
+                lFolderBrowser.SelectedPath = DirConstants.cDefaultSteamDir;
             }
 
             while (!lbValidDir)
@@ -251,16 +252,22 @@ namespace MGP_25_Mod_Launcher
 
         private void createShortcuts_Click(object sender, EventArgs e)
         {
-            Utilities.addShortcutToDesktop(cGameDir, 0);
-            Utilities.addShortcutToDesktop(cGameDir, 1);
+            Utilities.addShortcutToDesktop(cGameDir, 0, cCurrentGame);
+            Utilities.addShortcutToDesktop(cGameDir, 1, cCurrentGame);
         }
 
         private void selectGameDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
             cCurrentGame = DirConstants.cSupportedGames[selectGameDropdown.SelectedIndex];
             oSettings.setGame(cCurrentGame);
-            oSettings.setSetting("selectedGame", cCurrentGame);
             cGameDir = oSettings.getSetting("gameDir");
+
+            if(cGameDir == "")
+            {
+                queryGameDirectory();
+            }
+
+            oSettings.setSetting("selectedGame", cCurrentGame);
         }
 
         private void launchModdedGame_Click(object sender, EventArgs e)

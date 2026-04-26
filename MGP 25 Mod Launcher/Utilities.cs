@@ -38,10 +38,10 @@ namespace MGP_25_Mod_Launcher
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public static void addShortcutToDesktop(string pcGameDir, int piModded)
+        public static void addShortcutToDesktop(string pcGameDir, int piModded, string pcGameName = "")
         {
             dynamic loMyShortCut;
-            string lcLinkName = DirConstants.cGameName;
+            string lcLinkName = string.IsNullOrEmpty(pcGameName) ? DirConstants.cGameName : pcGameName;
             string lcArguments;
 
             if (piModded == 0)
@@ -54,6 +54,8 @@ namespace MGP_25_Mod_Launcher
                 lcLinkName += " With Mods";
                 lcArguments = "-LaunchModded";
             }
+
+            lcArguments += " -" + pcGameName.Replace(" ", "");
 
             loMyShortCut = new WshShell().CreateShortcut(DirConstants.cDesktopDir + "\\" + lcLinkName + ".lnk");
             loMyShortCut.IconLocation = pcGameDir + DirConstants.cExeDir;

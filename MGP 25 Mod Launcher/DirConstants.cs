@@ -10,7 +10,7 @@
 
         public static readonly string cLauncherName = AppDomain.CurrentDomain.FriendlyName;
 
-        public const string cDefaultGameDir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\MotoGP™25";
+        public const string cDefaultSteamDir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\";
         
         public const string cGameName = "MotoGP™25";
 
