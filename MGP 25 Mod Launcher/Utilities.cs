@@ -43,6 +43,7 @@ namespace MGP_25_Mod_Launcher
             dynamic loMyShortCut;
             string lcLinkName = string.IsNullOrEmpty(pcGameName) ? DirConstants.cGameName : pcGameName;
             string lcArguments;
+            string lcGameNameSimplified = pcGameName.Replace(" ", "");
 
             if (piModded == 0)
             {
@@ -55,10 +56,10 @@ namespace MGP_25_Mod_Launcher
                 lcArguments = "-LaunchModded";
             }
 
-            lcArguments += " -" + pcGameName.Replace(" ", "");
+            lcArguments += " -" + lcGameNameSimplified;
 
             loMyShortCut = new WshShell().CreateShortcut(DirConstants.cDesktopDir + "\\" + lcLinkName + ".lnk");
-            loMyShortCut.IconLocation = pcGameDir + DirConstants.cExeDir;
+            loMyShortCut.IconLocation = pcGameDir + "\\" + lcGameNameSimplified + "\\" + DirConstants.cBinaryDir + lcGameNameSimplified + DirConstants.cExeSuffix;
             loMyShortCut.TargetPath = DirConstants.cWorkingDir + "\\" + DirConstants.cLauncherName + ".exe";
             loMyShortCut.Arguments = lcArguments;
             loMyShortCut.WorkingDirectory = DirConstants.cWorkingDir;

@@ -37,5 +37,7 @@
         public const string cDllName = "dsound.dll";
 
         public const string cSigBypassName = "UniversalSigBypasser.asi";
+
+        public const string cExeSuffix = "-Win64-Shipping.exe";
     }
 }
