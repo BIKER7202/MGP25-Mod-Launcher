@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             createShortcuts = new Button();
             selectGameDropdown = new ComboBox();
             selectGameLabel = new Label();
@@ -47,6 +48,18 @@
             createShortcuts.UseVisualStyleBackColor = true;
             createShortcuts.Click += createShortcuts_Click;
             // 
+            // selectGameDropdown
+            // 
+            selectGameDropdown.DropDownStyle = ComboBoxStyle.DropDownList;
+            selectGameDropdown.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            selectGameDropdown.Items.AddRange(new object[] { "MotoGP 25", "MotoGP 26", "RIDE 6" });
+            selectGameDropdown.Location = new Point(51, 182);
+            selectGameDropdown.Name = "selectGameDropdown";
+            selectGameDropdown.Size = new Size(311, 31);
+            selectGameDropdown.TabIndex = 2;
+            selectGameDropdown.SelectedIndexChanged += selectGameDropdown_SelectedIndexChanged;
+            setSelectedGameDropDown();
+            // 
             // selectGameLabel
             // 
             selectGameLabel.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -56,19 +69,6 @@
             selectGameLabel.TabIndex = 1;
             selectGameLabel.Text = "Select Game";
             selectGameLabel.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // selectGameDropdown
-            // 
-            selectGameDropdown.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            selectGameDropdown.Location = new Point(51, 182);
-            selectGameDropdown.Name = "selectGameDropdown";
-            selectGameDropdown.Size = new Size(311, 36);
-            selectGameDropdown.TabIndex = 2;
-            selectGameDropdown.SelectedIndexChanged += selectGameDropdown_SelectedIndexChanged;
-            selectGameDropdown.Items.Clear();
-            selectGameDropdown.Items.AddRange(DirConstants.cSupportedGames);
-            selectGameDropdown.DropDownStyle = ComboBoxStyle.DropDownList;
-            setSelectedGameDropDown();
             // 
             // setGameDirectory
             // 
@@ -117,6 +117,7 @@
             Controls.Add(launchModdedGame);
             Controls.Add(launchVanillaGame);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "MainWindow";
             Text = "BIKER's MotoGP Mod Launcher";
