@@ -78,5 +78,16 @@ namespace MGP_25_Mod_Launcher
                 }
             }
         }
+
+        public static string getMD5HashAsBase64(byte[] pcFiletoHash)
+        {
+            byte[] lwMD5Hash;
+
+            using (MD5 loMD5 = MD5.Create())
+            {
+                lwMD5Hash = loMD5.ComputeHash(pcFiletoHash);
+                return Convert.ToBase64String(lwMD5Hash);
+            }
+        }
     }
 }

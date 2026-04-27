@@ -40,10 +40,10 @@ namespace MGP_25_Mod_Launcher
         {
             string lcSubDir = "\\" + pcGameName + "\\";
 
-            if (File.Exists(DirConstants.cVanillaDir + lcSubDir + DirConstants.cBootstrapName) && File.Exists(DirConstants.cModdedDir + lcSubDir + DirConstants.cBootstrapName))
+            if (File.Exists(DirConstants.cVanillaDir + lcSubDir + DirConstants.cBootstrapName))
             {
-                lcVanillaHash = Utilities.getMD5HashAsBase64(DirConstants.cVanillaDir + lcSubDir + DirConstants.cEACConfigName);
-                lcModdedHash = Utilities.getMD5HashAsBase64(DirConstants.cModdedDir + lcSubDir + DirConstants.cEACConfigName);
+                lcVanillaHash = Utilities.getMD5HashAsBase64(DirConstants.cVanillaDir + lcSubDir + DirConstants.cBootstrapName);
+                lcModdedHash = Utilities.getMD5HashAsBase64(Properties.Resources.eacExe);
             }
         }
 
