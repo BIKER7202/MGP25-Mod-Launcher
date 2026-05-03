@@ -2,7 +2,7 @@
 
 A very simplistic program to allow the patching of MotoGP 25 in order to use mods, with the ability to launch either the patched version (to use mods) or the default version without mods (to play online).
 
-The code isn't *brilliant*, but it does the job for this task. Obviously if you spot any bugs within the code itself, let me know and I'll address them. I may also update it in the future to make it less rigid to allow it to work with multiple games (I'm assuming 26 will need a similar tool).
+The code isn't *brilliant*, but it does the job for this task. Obviously if you spot any bugs within the code itself, let me know and I'll address them.
 
 Feel free to build upon this, adapt it for other games, port it to a different language, anything really!
 
@@ -15,6 +15,15 @@ For most, just download the files from the releases section and follow the tutor
 Of course if you run into any issues, let me know either here or on in my Discord Server (more likely to get a fast response there).
 
 Discord: https://discord.gg/WYMDRm2Hvv
+
+
+## Credits
+
+**This program now uses the following tools to do the patching:**
+
+[**- Asi Loader by ThirteenAG**](https://github.com/ThirteenAG/Ultimate-ASI-Loader)
+
+[**- Universal Sig Bypasser by NoobInCoding**](https://github.com/rm-NoobInCoding/UniversalSigBypasser)
 
 
 ## Other Info
