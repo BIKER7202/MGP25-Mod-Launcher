@@ -60,6 +60,11 @@ namespace MGP_25_Mod_Launcher
 
         private void saveSettings() 
         {
+            if (!Directory.Exists(DirConstants.cSettingsDir))
+            {
+                Directory.CreateDirectory(DirConstants.cSettingsDir);
+            }
+
             if (File.Exists(cConfigLocation))
             {
                 File.Delete(cConfigLocation);
