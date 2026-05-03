@@ -92,6 +92,8 @@ namespace MGP_25_Mod_Launcher
             {
                 cCurrentGame = loGameSelectionDialog.cSelectedGame;
                 oSettings.setGame(cCurrentGame);
+                oSettings.setSetting("selectedGame", cCurrentGame);
+                oHashChecker = new HashChecker("", "");
             }
             else if (loGameSelectionDialogResult == DialogResult.Cancel)
             {
