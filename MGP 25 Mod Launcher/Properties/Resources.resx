@@ -127,6 +127,33 @@
   <data name="ModLauncher" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ModLauncher.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MotoGP 25 Test Mod Pak" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MotoGP 25 Test Mod Pak.pak;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MotoGP 25 Test Mod Ucas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MotoGP 25 Test Mod Ucas.ucas;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MotoGP 25 Test Mod Utoc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MotoGP 25 Test Mod Utoc.utoc;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MotoGP 26 Test Mod Pak" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MotoGP 26 Test Mod Pak.pak;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MotoGP 26 Test Mod Ucas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MotoGP 26 Test Mod Ucas.ucas;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MotoGP 26 Test Mod Utoc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MotoGP 26 Test Mod Utoc.utoc;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Ride 6 Test Mod Pak" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ride 6 Test Mod Pak.pak;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Ride 6 Test Mod Ucas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ride 6 Test Mod Ucas.ucas;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Ride 6 Test Mod Utoc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ride 6 Test Mod Utoc.utoc;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigBypass" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UniversalSigBypasser.asi;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

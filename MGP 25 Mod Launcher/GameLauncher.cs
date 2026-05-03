@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 
 namespace MGP_25_Mod_Launcher
 {
@@ -14,6 +15,29 @@ namespace MGP_25_Mod_Launcher
             launchGame(1, pcGameDir, pcGameName);
         }
 
+        private static byte[] getResourceByGameName(string pcGameName, string pcResourceType)
+        {
+            string lcResourceName = $"{pcGameName} Test Mod {pcResourceType}";
+            byte[]? lwTemp;
+
+            PropertyInfo? loResourceProperty = typeof(Properties.Resources).GetProperty(
+                lcResourceName.Replace(" ", "_"),
+                BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase
+            );
+
+            if (loResourceProperty != null && loResourceProperty.CanRead)
+            {
+                // Safely cast/GetValue and handle possible nulls
+                lwTemp = loResourceProperty.GetValue(null) as byte[];
+                if (lwTemp != null)
+                {
+                    return lwTemp;
+                }
+            }
+
+            return Array.Empty<byte>();
+        }
+
         public static void launchGame(int piModded, string pcGameDir, string pcGameName)
         {
             string lcAsiLoaderPath;
@@ -23,6 +47,7 @@ namespace MGP_25_Mod_Launcher
             string lcGameNameSimplified;
             string lcEACConfigToCopy;
             string lcExeToReplace = pcGameDir + "\\" + DirConstants.cBootstrapName;
+            string lcTestModPath;
 
             ProcessStartInfo loProcessToStart = new ProcessStartInfo();
             loProcessToStart.UseShellExecute = false;
@@ -33,6 +58,7 @@ namespace MGP_25_Mod_Launcher
             lcBinaryPath = pcGameDir + "\\" + lcGameNameSimplified + DirConstants.cBinaryDir;
             lcAsiLoaderPath = lcBinaryPath + DirConstants.cDllName;
             lcSigBypassPath = lcBinaryPath + DirConstants.cSigBypassName;
+            lcTestModPath = pcGameDir + "\\" + lcGameNameSimplified + DirConstants.cPakDir + DirConstants.cTestModName;
 
             if (piModded == 0)
             {
@@ -73,6 +99,11 @@ namespace MGP_25_Mod_Launcher
                     File.WriteAllBytes(lcSigBypassPath, Properties.Resources.sigBypass);
                     File.WriteAllBytes(lcAsiLoaderPath, Properties.Resources.asiLoader);
                     File.WriteAllBytes(lcExeToReplace, Properties.Resources.eacExe);
+
+                    // Dynamically copy pak, utoc, and ucas files based on game name
+                    File.WriteAllBytes(lcTestModPath + ".pak", getResourceByGameName(pcGameName, "Pak"));
+                    File.WriteAllBytes(lcTestModPath + ".utoc", getResourceByGameName(pcGameName, "Utoc"));
+                    File.WriteAllBytes(lcTestModPath + ".ucas", getResourceByGameName(pcGameName, "Ucas"));
                 }
 
                 Process.Start(loProcessToStart);

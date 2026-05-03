@@ -93,6 +93,96 @@ namespace MGP_25_Mod_Launcher.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] MotoGP_25_Test_Mod_Pak {
+            get {
+                object obj = ResourceManager.GetObject("MotoGP 25 Test Mod Pak", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] MotoGP_25_Test_Mod_Ucas {
+            get {
+                object obj = ResourceManager.GetObject("MotoGP 25 Test Mod Ucas", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] MotoGP_25_Test_Mod_Utoc {
+            get {
+                object obj = ResourceManager.GetObject("MotoGP 25 Test Mod Utoc", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] MotoGP_26_Test_Mod_Pak {
+            get {
+                object obj = ResourceManager.GetObject("MotoGP 26 Test Mod Pak", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] MotoGP_26_Test_Mod_Ucas {
+            get {
+                object obj = ResourceManager.GetObject("MotoGP 26 Test Mod Ucas", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] MotoGP_26_Test_Mod_Utoc {
+            get {
+                object obj = ResourceManager.GetObject("MotoGP 26 Test Mod Utoc", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Ride_6_Test_Mod_Pak {
+            get {
+                object obj = ResourceManager.GetObject("Ride 6 Test Mod Pak", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Ride_6_Test_Mod_Ucas {
+            get {
+                object obj = ResourceManager.GetObject("Ride 6 Test Mod Ucas", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Ride_6_Test_Mod_Utoc {
+            get {
+                object obj = ResourceManager.GetObject("Ride 6 Test Mod Utoc", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] sigBypass {
             get {
                 object obj = ResourceManager.GetObject("sigBypass", resourceCulture);

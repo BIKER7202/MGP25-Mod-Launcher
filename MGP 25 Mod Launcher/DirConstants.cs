@@ -33,11 +33,15 @@
         public static readonly string[] cSupportedGames = new string[] { "MotoGP 25", "MotoGP 26", "RIDE 6" };
 
         public const string cBinaryDir = "\\Binaries\\Win64\\";
+        
+        public const string cPakDir = "\\Content\\Paks\\";
 
         public const string cDllName = "dsound.dll";
 
         public const string cSigBypassName = "UniversalSigBypasser.asi";
 
         public const string cExeSuffix = "-Win64-Shipping.exe";
+
+        public const string cTestModName = "TestMod_P";
     }
 }
